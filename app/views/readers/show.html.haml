@@ -1,0 +1,19 @@
+%p#notice= notice
+%p
+  %strong First name:
+  = @reader.first_name
+%p
+  %strong Last name:
+  = @reader.last_name
+%p
+  %strong Second name:
+  = @reader.second_name
+%p
+  %strong Birthdate:
+  = @reader.birthdate
+%p
+  %strong Avatar:
+  = image_tag(@reader.avatar_url.to_s)
+= link_to 'Edit', edit_reader_path(@reader)
+|
+= link_to 'Back', readers_path

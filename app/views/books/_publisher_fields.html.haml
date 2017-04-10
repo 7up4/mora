@@ -1,0 +1,10 @@
+= book.fields_for :publishers do |publisher|
+  .field
+    = publisher.label :publisher_name
+    = publisher.text_field :publisher_name
+  .field
+    = publisher.label :publisher_logo
+    = publisher.file_field :publisher_logo
+  .field
+    = publisher.label :publisher_location
+    = publisher.text_field :publisher_location

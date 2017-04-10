@@ -1,0 +1,16 @@
+= book.fields_for :authors do |author|
+  .field
+    = author.label :first_name
+    = author.text_field :first_name
+  .field
+    = author.label :last_name
+    = author.text_field :last_name
+  .field
+    = author.label :second_name
+    = author.text_field :second_name
+  .field
+    = author.label :biography
+    = author.text_area :biography
+  .field
+    = author.label :photo
+    = author.file_field :photo

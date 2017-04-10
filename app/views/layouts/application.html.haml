@@ -1,0 +1,37 @@
+!!!
+%html
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %title Mora
+    = csrf_meta_tags
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
+    = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
+  %body
+    %nav.navbar.navbar-inverse
+      .container
+        .navbar-header
+          = link_to 'Mora', root_path, class: 'navbar-brand'
+        #navbar
+          %ul.nav.navbar-nav
+            %li= link_to 'Books', root_path
+            %li= link_to 'Authors', authors_path
+            %li= link_to 'Publishers', publishers_path
+            %li= link_to 'Genres', genres_path
+            %li= link_to 'Readers', readers_path
+          %ul.nav.navbar-nav.pull-right
+            - if reader_signed_in?
+              %li.dropdown
+                %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
+                  = current_reader.nick
+                  %span.caret
+                %ul.dropdown-menu{:role => "menu"}
+                  %li= link_to 'Profile', edit_reader_registration_path
+                  %li= link_to 'Log out', destroy_reader_session_path, method: :delete
+            - else
+              %li= link_to 'Log In', new_reader_session_path
+              %li= link_to 'Sign Up', new_reader_registration_path
+    = yield
+    %p.notice
+      = notice
+    %p.alert
+      = alert

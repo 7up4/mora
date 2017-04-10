@@ -1,0 +1,25 @@
+%p#notice= notice
+%p
+  %strong Title:
+  = @book.title
+%p
+  %strong Date of publication:
+  = @book.date_of_publication
+%p
+  %strong Annotation:
+  = @book.annotation
+%p
+  %strong Volume:
+  = @book.volume
+%p
+  %strong Language:
+  = @book.language
+%p
+  %strong Cover:
+  = image_tag(@book.cover_url.to_s)
+%p
+  %strong Book file:
+  = @book.book_file
+= link_to 'Edit', edit_book_path(@book)
+|
+= link_to 'Back', books_path

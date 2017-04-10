@@ -1,0 +1,19 @@
+%p#notice= notice
+%p
+  %strong First name:
+  = @author.first_name
+%p
+  %strong Last name:
+  = @author.last_name
+%p
+  %strong Second name:
+  = @author.second_name
+%p
+  %strong Biography:
+  = @author.biography
+%p
+  %strong Photo:
+  = image_tag(@author.photo_url.to_s)
+= link_to 'Edit', edit_author_path(@author)
+|
+= link_to 'Back', authors_path
