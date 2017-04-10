@@ -35,6 +35,6 @@ Mora. Личное хранилище электронных книг.
 * Система аутентификации: [Devise](https://github.com/plataformatec/devise)
 * Файловый загрузчик: [CarrierWave](https://github.com/carrierwaveuploader/carrierwave)
 * Оформление: [Bootstrap](https://github.com/twbs/bootstrap-sass)
-
+* Читалка: [EPUB.js](https://github.com/futurepress/epub.js)
 Буду рад любой критике, т.к. главной целью является получение опыта в области веб-программирования.
 Планируемые задачи перечислены в TODO.
