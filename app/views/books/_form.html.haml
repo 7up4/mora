@@ -29,6 +29,8 @@
     = f.label :book_file
     = f.file_field :book_file
   = render 'author_fields', book: f
+  = button_tag 'Add an author', :type=>"button", :class => 'duplicate_nested_form', id: "author"
   = render 'publisher_fields', book: f
+  = button_tag 'Add a publisher', :type=>"button", :class => 'duplicate_nested_form', id: "publisher"
   .actions
     = f.submit

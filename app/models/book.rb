@@ -37,7 +37,7 @@ class Book < ApplicationRecord
   end
 
   def date_of_publication_not_in_future
-    if date_of_publication.present? && date_of_publication > Date.today.year
+    if date_of_publication.present? && date_of_publication > Time.now
       errors.add(:date_of_publication, "can't be in the future")
     end
   end

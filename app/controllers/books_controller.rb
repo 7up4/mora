@@ -23,8 +23,6 @@ class BooksController < ApplicationController
 
   # GET /books/1/edit
   def edit
-    @auth=@book.authors.build
-    @publ=@book.publishers.build
   end
 
   # POST /books
@@ -78,7 +76,7 @@ class BooksController < ApplicationController
     def book_params
       params.require(:book).permit(
         :title, :date_of_publication, :annotation, :volume, :language, :cover, :book_file,
-        authors_attributes: [:id, :first_name, :last_name, :second_name, :biography, :photo],
+        authors_attributes: [:id, :first_name, :last_name, :second_name, :biography, :gender, :photo],
         publishers_attributes: [:id, :publisher_name, :publisher_logo, :publisher_logo, :publisher_location]
       )
     end
