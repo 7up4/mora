@@ -21,7 +21,7 @@
     = f.text_area :biography
   .field
     = f.label :gender
-    = f.select :gender, GENDERS
+    = f.select :gender, ApplicationRecord::GENDERS, default: ApplicationRecord::GENDERS[0]
   .field
     = f.label :photo
     = f.file_field :photo

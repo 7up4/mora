@@ -1,4 +1,4 @@
-= form_for(book) do |f|
+= nested_form_for book do |f|
   - if book.errors.any?
     #error_explanation
       %h2
@@ -21,7 +21,7 @@
     = f.number_field :volume, min:0
   .field
     = f.label :language
-    = f.select :language, Book::LANGUAGES, include_blank: true
+    = f.select :language, ApplicationRecord::LANGUAGES, include_blank: true
   .field
     = f.label :cover
     = f.file_field :cover
@@ -29,8 +29,6 @@
     = f.label :book_file
     = f.file_field :book_file
   = render 'author_fields', book: f
-  = button_tag 'Add an author', :type=>"button", :class => 'duplicate_nested_form', id: "author"
   = render 'publisher_fields', book: f
-  = button_tag 'Add a publisher', :type=>"button", :class => 'duplicate_nested_form', id: "publisher"
   .actions
     = f.submit

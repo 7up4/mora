@@ -1,7 +1,10 @@
 Rails.application.routes.draw do
   devise_for :readers
   resources :readers
-  resources :books
+  resources :books do
+    resources :authors
+    resources :publishers
+  end
   resources :publishers
   resources :genres
   resources :authors
