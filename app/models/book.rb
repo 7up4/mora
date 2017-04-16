@@ -12,8 +12,8 @@ class Book < ApplicationRecord
   has_many :genres, through: :book_genres
   has_many :publishers, through: :book_publishers
 
-  accepts_nested_attributes_for :authors, allow_destroy: true, reject_if: :reject_authors
-  accepts_nested_attributes_for :publishers, allow_destroy: true, reject_if: :reject_publishers
+  accepts_nested_attributes_for :authors, allow_destroy: true, reject_if: :invalid_author
+  accepts_nested_attributes_for :publishers, allow_destroy: true, reject_if: :invalid_publisher
 
   mount_uploader :cover, CoverUploader
   mount_uploader :book_file, BookFileUploader
@@ -22,14 +22,15 @@ class Book < ApplicationRecord
   validates :volume, numericality: {greater_than: 0}
   validates :language, inclusion: {in: ApplicationRecord::LANGUAGES}
   validate :date_of_publication_not_in_future
+  validate :has_an_author if !Reader.current.admin?
 
   protected
 
-  def reject_authors(attributes)
+  def invalid_author(attributes)
     attributes['first_name'].blank? and attributes['last_name'].blank?
   end
 
-  def reject_publishers(attributes)
+  def invalid_publisher(attributes)
     attributes['publisher_name'].blank?
   end
 
@@ -48,5 +49,9 @@ class Book < ApplicationRecord
     if date_of_publication.present? && date_of_publication > Time.now
       errors.add(:date_of_publication, "can't be in the future")
     end
+  end
+
+  def has_an_author
+    errors.add(:book, 'must add at least one author') if self.authors.empty? || self.authors.all? {|author| author.marked_for_destruction?}
   end
 end

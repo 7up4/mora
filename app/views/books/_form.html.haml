@@ -28,6 +28,12 @@
   .field
     = f.label :book_file
     = f.file_field :book_file
+  .field
+    = f.label :authors
+    = f.select :author_ids, Author.all.select{|a| !a.books.exists?(@book.id)}.collect{|a| [a.first_name+' '+a.last_name, a.id]}, {}, multiple: true
+  .field
+    = f.label :publishers
+    = f.select :publisher_ids, Publisher.all.select{|p| !p.books.exists?(@book.id)}.collect{|p| [p.publisher_name, p.id]}, {}, multiple: true
   = render 'author_fields', book: f
   = render 'publisher_fields', book: f
   .actions

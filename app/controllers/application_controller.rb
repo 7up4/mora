@@ -18,6 +18,7 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  # Make current_reader accesible from models
   def set_current_reader
     Reader.current = current_reader
   end
