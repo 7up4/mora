@@ -16,7 +16,8 @@
             %li= link_to 'Books', root_path
             %li= link_to 'Authors', authors_path
             %li= link_to 'Publishers', publishers_path
-            %li= link_to 'Genres', genres_path
+            - if current_reader.admin?
+              %li= link_to 'Genres', genres_path
             %li= link_to 'Readers', readers_path
           %ul.nav.navbar-nav.pull-right
             - if reader_signed_in?

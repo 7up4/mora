@@ -13,6 +13,10 @@
   .field
     = f.label :date_of_publication
     = f.date_select :date_of_publication, start_year: Date.today.year-500, end_year: Date.today.year
+  - if @book.genres.exists?
+    .field
+    = f.label :genres
+    = @book.genres.collect{|g| g.genre_name}.join(', ')
   .field
     = f.label :annotation
     = f.text_area :annotation
@@ -28,6 +32,9 @@
   .field
     = f.label :book_file
     = f.file_field :book_file
+  .field
+    = f.label :genres
+    = f.select :genre_ids, Genre.all.collect{|g| [g.genre_name, g.id]}, {}, multiple: true
   .field
     = f.label :authors
     = f.select :author_ids, Author.all.select{|a| !a.books.exists?(@book.id)}.collect{|a| [a.first_name+' '+a.last_name, a.id]}, {}, multiple: true

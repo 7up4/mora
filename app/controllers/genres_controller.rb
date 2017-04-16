@@ -1,6 +1,6 @@
 class GenresController < ApplicationController
   before_action :set_genre, only: [:show, :edit, :update, :destroy]
-  before_action :administrative_rights, except: [:index]
+  before_action :administrative_rights, except: [:update]
 
   # GET /genres
   # GET /genres.json

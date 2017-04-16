@@ -13,7 +13,7 @@
   = @reader.birthdate
 %p
   %strong Avatar:
-  = image_tag(@reader.avatar_url.to_s)
-= link_to 'Edit', edit_reader_path(@reader)
-|
+  = image_tag(@reader.avatar_url(:thumb).to_s)
+- if current_reader.admin?
+  = link_to 'Edit', edit_reader_path(@reader)
 = link_to 'Back', readers_path

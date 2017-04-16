@@ -18,7 +18,7 @@
     = f.text_field :second_name
   .field
     = f.label :gender
-    = f.select :gender, GENDERS
+    = f.select :gender, ApplicationRecord::GENDERS
   .field
     = f.label :birthdate
     = f.date_select :birthdate, start_year: Date.today.year-150, end_year: Date.today.year
