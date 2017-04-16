@@ -4,6 +4,9 @@ Rails.application.routes.draw do
   resources :books do
     resources :authors
     resources :publishers
+    member do
+      get :epub_reader
+    end
   end
   resources :publishers
   resources :genres

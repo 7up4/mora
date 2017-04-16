@@ -32,5 +32,8 @@ genres = Genre.create([
   {genre_name: 'Series'},
   {genre_name: 'Biography'},
   {genre_name: 'Autobiography'},
-  {genre_name: 'Fantasy'}
+  {genre_name: 'Fantasy'},
+  {genre_name: 'Short story'},
+  {genre_name: 'Absurdist fiction'},
+  {genre_name: 'Slipstream'}
 ])

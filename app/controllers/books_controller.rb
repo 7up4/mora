@@ -1,7 +1,7 @@
 class BooksController < ApplicationController
   before_action :set_book, only: [:show, :edit, :update, :destroy]
   before_action :check_permissions, only: [:edit, :update, :destroy]
-  before_action :administrative_rights, except: [:show, :edit, :update, :index, :create, :new, :destroy]
+  before_action :administrative_rights, except: [:show, :edit, :update, :index, :create, :new, :destroy, :epub_reader]
 
   # GET /books
   # GET /books.json
@@ -12,6 +12,10 @@ class BooksController < ApplicationController
   # GET /books/1
   # GET /books/1.json
   def show
+  end
+
+  def epub_reader
+    @reading_book = Book.find(params[:id]).book_file
   end
 
   # GET /books/new
