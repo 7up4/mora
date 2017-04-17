@@ -1,0 +1,45 @@
+.opened_book{"data-file-address": @reading_book}
+  #sidebar
+    #panels
+      %input#searchBox{:placeholder => "search", :type => "search"}
+      %a#show-Search.show_view.icon-search{"data-view" => "Search"} Search
+      %a#show-Toc.show_view.icon-list-1.active{"data-view" => "Toc"} TOC
+      %a#show-Bookmarks.show_view.icon-bookmark{"data-view" => "Bookmarks"} Bookmarks
+      %a#show-Notes.show_view.icon-edit{"data-view" => "Notes"} Notes
+    #tocView.view
+    #searchView.view
+      %ul#searchResults
+    #bookmarksView.view
+      %ul#bookmarks
+    #notesView.view
+      #new-note
+        %textarea#note-text
+        %button#note-anchor Anchor
+      %ol#notes
+  #main
+    #titlebar
+      #opener
+        %a#slider.icon-menu Menu
+      #metainfo
+        %span#book-title
+        %span#title-seperator   –
+        %span#chapter-title
+      #title-controls
+        %a#bookmark.icon-bookmark-empty Bookmark
+        %a#setting.icon-cog Settings
+        %a#fullscreen.icon-resize-full Fullscreen
+    #divider
+    #prev.arrow ‹
+    #viewer
+    #next.arrow ›
+    -# #loader
+    -#   =image_tag "loader.gif"
+  #settings-modal.modal.md-effect-1
+    .md-content
+      %h3 Settings
+      %div
+        %p
+          %input#sidebarReflow{name: "sidebarReflow", type: "checkbox"}>/
+          Reflow text when sidebars are open.
+      .closer.icon-cancel-circled
+  .overlay

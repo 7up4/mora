@@ -16,3 +16,7 @@
 //= require turbolinks
 //= require_tree .
 //= require jquery_nested_form
+//= require javascripts/libs/zip.min.js
+//= require javascripts/libs/screenfull.min.js
+//= require javascripts/epub.min.js
+//= require javascripts/reader.min.js
