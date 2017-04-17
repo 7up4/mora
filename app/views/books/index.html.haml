@@ -10,7 +10,6 @@
       %th Annotation
       %th Volume
       %th Language
-      %th Book file
       %th{:colspan => "3"}
   %tbody
     - @books.each do |book|
@@ -22,7 +21,6 @@
         %td= book.annotation
         %td= book.volume
         %td= book.language
-        %td= book.book_file
         %td= link_to 'Show', book
         %td= link_to 'Edit', edit_book_path(book)
         %td= link_to 'Destroy', book, method: :delete, data: { confirm: 'Are you sure?' }
