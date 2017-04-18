@@ -16,6 +16,7 @@
 
  @import "bootstrap-sprockets";
  @import "bootstrap";
+ @import "bootstrap-datepicker";
  @import "stylesheets/normalize.css";
  @import "stylesheets/main.css";
  @import "stylesheets/popup.css";
@@ -27,4 +28,10 @@
 
 html, body, .opened_book{
   height: 100%;
+}
+
+.avatar{
+  float: left;
+  margin-left: 4px;
+  margin-right: 5px;
 }

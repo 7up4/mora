@@ -21,7 +21,7 @@
     = f.select :gender, ApplicationRecord::GENDERS
   .field
     = f.label :birthdate
-    = f.date_select :birthdate, start_year: Date.today.year-150, end_year: Date.today.year
+    = f.text_field :birthdate, class: 'datepicker'
   .field
     = f.label :avatar
     = f.file_field :avatar

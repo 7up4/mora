@@ -7,12 +7,12 @@
       %ul
         - book.errors.full_messages.each do |message|
           %li= message
-  .field
+  .form-group
     = f.label :title
     = f.text_field :title
   .field
     = f.label :date_of_publication
-    = f.date_select :date_of_publication, start_year: Date.today.year-500, end_year: Date.today.year
+    = f.text_field :date_of_publication, class: 'datepicker'
   - if @book.genres.exists?
     .field
     = f.label :genres
@@ -29,9 +29,10 @@
   .field
     = f.label :cover
     = f.file_field :cover
-  .field
-    = f.label :book_file
-    = f.file_field :book_file
+  - if action_name != 'edit'
+    .field
+      = f.label :book_file
+      = f.file_field :book_file
   .field
     = f.label :genres
     = f.select :genre_ids, Genre.all.collect{|g| [g.genre_name, g.id]}, {}, multiple: true

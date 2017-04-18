@@ -17,9 +17,6 @@
 %p
   %strong Cover:
   = image_tag(@book.cover_url.to_s)
-%p
-  %strong Book file:
-  = @book.book_file
 = link_to 'Edit', edit_book_path(@book)
 = link_to 'Read', epub_reader_book_path(@book)
 |

@@ -3,20 +3,20 @@
 %table
   %thead
     %tr
+      %th Avatar
       %th First name
       %th Last name
       %th Second name
       %th Birthdate
-      %th Avatar
       %th{:colspan => "3"}
   %tbody
     - @readers.each do |reader|
       %tr
+        %td= image_tag(reader.avatar_url(:thumb).to_s, class: 'img-rounded')
         %td= reader.first_name
         %td= reader.last_name
         %td= reader.second_name
         %td= reader.birthdate
-        %td= reader.avatar
         %td= link_to 'Show', reader
         - if current_reader.admin?
           %td= link_to 'Edit', edit_reader_path(reader)

@@ -1,4 +1,5 @@
 %p#notice= notice
+= image_tag(@reader.avatar_url(:thumb).to_s, class: "avatar")
 %p
   %strong First name:
   = @reader.first_name
@@ -11,9 +12,6 @@
 %p
   %strong Birthdate:
   = @reader.birthdate
-%p
-  %strong Avatar:
-  = image_tag(@reader.avatar_url(:thumb).to_s)
 - if current_reader.admin?
   = link_to 'Edit', edit_reader_path(@reader)
 = link_to 'Back', readers_path
