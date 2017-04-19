@@ -7,7 +7,7 @@ class CreateBooks < ActiveRecord::Migration[5.0]
       t.integer :volume, null: false
       t.string :language, null: false
       t.string :cover
-      t.string :book_file
+      t.string :book_file, null: false
 
       t.timestamps
     end

@@ -24,7 +24,9 @@
 //= require javascripts/reader.min.js
 
 $(document).ready(function(){
-  $('.datepicker').datepicker({
-    // language: "ru"
+  $(document).on('turbolinks:load',function(){
+    $('.datepicker').datepicker({
+       language: "<%= I18n.locale %>"
+    });
   });
 });
