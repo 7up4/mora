@@ -18,7 +18,7 @@ class Book < ApplicationRecord
   mount_uploader :cover, CoverUploader
   mount_uploader :book_file, BookFileUploader
 
-  validates :title, :annotation, :volume, :language, presence: true
+  validates :volume, :language, presence: true
   validates :volume, numericality: {greater_than: 0}
   validates :language, inclusion: {in: ApplicationRecord::LANGUAGES}
   validates :book_file, presence: true

@@ -1,0 +1,3 @@
+$.each (<%= raw @query.to_json %>, function(i, val){
+  $(".hidden#"+val).removeClass("hidden")
+})

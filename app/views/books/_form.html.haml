@@ -1,4 +1,4 @@
-= nested_form_for book do |f|
+= nested_form_for book, remote: true, authenticity_token: true do |f|
   - if book.errors.any?
     #error_explanation
       %h2
@@ -7,7 +7,7 @@
       %ul
         - book.errors.full_messages.each do |message|
           %li= message
-  .field
+  .field.hidden#title
     = f.label :title
     = f.text_field :title
   .field
@@ -17,7 +17,7 @@
     .field
     = f.label :genres
     = @book.genres.collect{|g| g.genre_name}.join(', ')
-  .field
+  .field.hidden#annotation
     = f.label :annotation
     = f.text_area :annotation
   .field
@@ -26,13 +26,13 @@
   .field
     = f.label :language
     = f.select :language, ApplicationRecord::LANGUAGES, include_blank: true
-  .field
-    = f.label :cover
-    = f.file_field :cover
   - if action_name != 'edit'
     .field
       = f.label :book_file
       = f.file_field :book_file
+  -# .field
+  -#   = f.label :cover
+  -#   = f.file_field :cover
   .field
     = f.label :genres
     = f.select :genre_ids, Genre.all.collect{|g| [g.genre_name, g.id]}, {}, multiple: true

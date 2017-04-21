@@ -31,7 +31,22 @@ class BooksController < ApplicationController
   # POST /books.json
   def create
     @book = Book.new(book_params)
-
+    @query = Array.new
+    if !@book.book_file.blank?
+      book = EPUB::Parser.parse(@book.book_file.path)
+      @query<<"title" if (parsed_title = book.metadata.title).blank?
+      @query<<"annotation" if (parsed_annotation = ActionView::Base.full_sanitizer.sanitize(book.metadata.description)).blank?
+    end
+    if !@query.blank? then
+      respond_to do |format|
+        format.js {  }
+        return
+      end
+    end
+    @book.update_attributes(
+      title: parsed_title,
+      annotation: parsed_annotation
+    )
     respond_to do |format|
       if @book.save
         format.html { redirect_to @book, notice: 'Book was successfully created.' }
