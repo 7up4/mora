@@ -36,6 +36,14 @@ class BooksController < ApplicationController
       book = EPUB::Parser.parse(@book.book_file.path)
       @query<<"title" if (parsed_title = book.metadata.title).blank?
       @query<<"annotation" if (parsed_annotation = ActionView::Base.full_sanitizer.sanitize(book.metadata.description)).blank?
+      parsed_volume = 0
+      book.resources.select(&:xhtml?).each do |xhtml|
+        doc = xhtml.content_document.nokogiri
+        body = doc.search('body').first
+        content = body.content
+        parsed_volume += content.split.size if body
+      end
+      @query<<"volume" if parsed_volume==0
     end
     if !@query.blank? then
       respond_to do |format|
@@ -45,7 +53,8 @@ class BooksController < ApplicationController
     end
     @book.update_attributes(
       title: parsed_title,
-      annotation: parsed_annotation
+      annotation: parsed_annotation,
+      volume: parsed_volume
     )
     respond_to do |format|
       if @book.save
