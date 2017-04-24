@@ -68,10 +68,10 @@ ActiveRecord::Schema.define(version: 20170422170934) do
     t.string   "title",               null: false
     t.date     "date_of_publication"
     t.text     "annotation",          null: false
-    t.integer  "volume",              null: false
+    t.integer  "volume"
     t.string   "language",            null: false
     t.string   "cover"
-    t.string   "book_file"
+    t.string   "book_file",           null: false
     t.datetime "created_at",          null: false
     t.datetime "updated_at",          null: false
   end

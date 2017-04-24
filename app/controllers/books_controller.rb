@@ -1,7 +1,6 @@
 class BooksController < ApplicationController
   before_action :set_book, only: [:show, :edit, :update, :destroy]
   before_action :check_permissions, only: [:edit, :update, :destroy]
-  before_action :administrative_rights, except: [:show, :edit, :update, :index, :create, :new, :destroy, :epub_reader]
 
   # GET /books
   # GET /books.json
@@ -36,14 +35,6 @@ class BooksController < ApplicationController
       book = EPUB::Parser.parse(@book.book_file.path)
       @query<<"title" if (parsed_title = book.metadata.title).blank?
       @query<<"annotation" if (parsed_annotation = ActionView::Base.full_sanitizer.sanitize(book.metadata.description)).blank?
-      parsed_volume = 0
-      book.resources.select(&:xhtml?).each do |xhtml|
-        doc = xhtml.content_document.nokogiri
-        body = doc.search('body').first
-        content = body.content
-        parsed_volume += content.split.size if body
-      end
-      @query<<"volume" if parsed_volume==0
     end
     if !@query.blank? then
       respond_to do |format|
@@ -51,11 +42,7 @@ class BooksController < ApplicationController
         return
       end
     end
-    @book.update_attributes(
-      title: parsed_title,
-      annotation: parsed_annotation,
-      volume: parsed_volume
-    )
+    @book.update_attributes(title: parsed_title, annotation: parsed_annotation)
     respond_to do |format|
       if @book.save
         format.html { redirect_to @book, notice: 'Book was successfully created.' }

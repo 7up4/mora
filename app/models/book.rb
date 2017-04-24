@@ -1,6 +1,7 @@
 class Book < ApplicationRecord
   before_create :set_book_reader
   before_destroy :remove_associations
+  after_create :count_words
 
   has_many :book_readers
   has_many :author_books
@@ -19,13 +20,17 @@ class Book < ApplicationRecord
   mount_uploader :book_file, BookFileUploader
 
   validates :title, :annotation, :language, presence: true
-  validates :volume, numericality: {greater_than: 0}
+  validates :volume, numericality: {greater_than: 0}, allow_nil: true
   validates :language, inclusion: {in: ApplicationRecord::LANGUAGES}
   validates :book_file, presence: true
   validate :date_of_publication_not_in_future
-  validate :has_an_author if !Reader.current.admin?
+  validate :has_an_author
 
   protected
+
+  def count_words
+    Delayed::Job.enqueue(BookJob.new(self))
+  end
 
   def invalid_author(attributes)
     attributes['first_name'].blank? and attributes['last_name'].blank?

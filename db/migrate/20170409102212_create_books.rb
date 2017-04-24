@@ -4,7 +4,7 @@ class CreateBooks < ActiveRecord::Migration[5.0]
       t.string :title, null: false
       t.date :date_of_publication
       t.text :annotation, null: false
-      t.integer :volume, null: false
+      t.integer :volume
       t.string :language, null: false
       t.string :cover
       t.string :book_file, null: false
