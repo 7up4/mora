@@ -1,7 +1,10 @@
 class Book < ApplicationRecord
+  attr_accessor :delayed_job_id
+
   before_create :set_book_reader
   before_destroy :remove_associations
   after_create :count_words
+  before_destroy :delete_jobs
 
   has_many :book_readers
   has_many :author_books
@@ -29,7 +32,11 @@ class Book < ApplicationRecord
   protected
 
   def count_words
-    Delayed::Job.enqueue(BookJob.new(self))
+    delayed_job_id = Delayed::Job.enqueue(BookJob.new(self))
+  end
+
+  def delete_jobs
+    Delayed::Job.find(self.delayed_job_id).destroy if self.delayed_job_id
   end
 
   def invalid_author(attributes)

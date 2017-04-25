@@ -17,8 +17,6 @@ class CreateBooks < ActiveRecord::Migration[5.0]
         execute("ALTER TABLE books ADD CONSTRAINT chk_volume CHECK(volume>0)")
         #execute("ALTER TABLE books ADD CONSTRAINT chk_date_of_publication CHECK(date_of_publication<=(to_char(now(),'YYYY')))")
       end
-      dir.down do
-      end
     end
   end
 end
