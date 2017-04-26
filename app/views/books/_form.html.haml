@@ -1,4 +1,4 @@
-= nested_form_for book, remote: true, authenticity_token: true do |f|
+= nested_form_for book, remote: true,  authenticity_token: true do |f|
   - if book.errors.any?
     #error_explanation
       %h2
@@ -30,9 +30,10 @@
     .field
       = f.label :book_file
       = f.file_field :book_file
-  -# .field
-  -#   = f.label :cover
-  -#   = f.file_field :cover
+      = f.hidden_field :book_file_cache
+  .field
+    = f.label :cover
+    = f.file_field :cover
   .field
     = f.label :genres
     = f.select :genre_ids, Genre.all.collect{|g| [g.genre_name, g.id]}, {}, multiple: true

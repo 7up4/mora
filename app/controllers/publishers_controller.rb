@@ -1,7 +1,6 @@
 class PublishersController < ApplicationController
   before_action :set_publisher, only: [:show, :edit, :update, :destroy]
   before_action :check_permissions, only: [:edit, :update, :destroy]
-  before_action :administrative_rights, except: [:edit, :index, :update,  :new, :show, :create, :destroy]
 
   # GET /publishers
   # GET /publishers.json
