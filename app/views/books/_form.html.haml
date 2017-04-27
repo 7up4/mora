@@ -1,4 +1,4 @@
-= nested_form_for book, remote: true,  authenticity_token: true do |f|
+= nested_form_for book, remote: true, authenticity_token: true do |f|
   - if book.errors.any?
     #error_explanation
       %h2
@@ -32,7 +32,7 @@
       = book.book_file_url.to_s if book.book_file?
       = f.file_field :book_file
       = f.hidden_field :book_file_cache
-  .field
+  .field.hidden#cover
     = f.label :cover
     = book.cover_url.to_s if book.cover?
     = f.file_field :cover

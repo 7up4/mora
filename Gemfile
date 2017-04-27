@@ -64,3 +64,6 @@ gem 'rails-i18n'
 gem 'epub-parser'
 gem 'daemons'
 gem 'delayed_job_active_record'
+gem 'rubyzip'
+gem 'zip-zip'
+gem 'remotipart', '1.3.1', github: "7up4/remotipart", branch: "master"

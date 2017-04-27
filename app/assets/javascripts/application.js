@@ -15,6 +15,7 @@
 //= require bootstrap-datepicker
 //= require bootstrap-datepicker/locales/bootstrap-datepicker.ru.js
 //= require jquery_ujs
+//= require jquery.remotipart
 //= require turbolinks
 //= require_tree .
 //= require jquery_nested_form
