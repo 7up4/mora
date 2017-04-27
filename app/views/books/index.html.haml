@@ -14,7 +14,7 @@
   %tbody
     - @books.each do |book|
       %tr
-        %td= book.cover
+        %td= image_tag(book.cover_url(:thumb).to_s)
         %td= book.title
         %td= book.date_of_publication
         %td= book.genres.collect{|g| g.genre_name}.join(", ")

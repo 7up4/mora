@@ -16,7 +16,7 @@
   = @book.language
 %p
   %strong Cover:
-  = image_tag(@book.cover_url.to_s)
+  = image_tag(@book.cover_url(:thumb).to_s)
 = link_to 'Edit', edit_book_path(@book)
 = link_to 'Read', epub_reader_book_path(@book)
 |
