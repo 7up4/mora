@@ -41,9 +41,10 @@ class Book < ApplicationRecord
       (parsed_title = parsed_book.metadata.title).blank? ? @query<<"title" : self.title = parsed_title
       (parsed_annotation = ActionView::Base.full_sanitizer.sanitize(parsed_book.metadata.description)).blank? ? @query<<"annotation" : self.annotation = parsed_annotation
       (opened_file = cover_image(parsed_book)).blank? || (parsed_cover = File.open(opened_file, 'r')).blank? ? @query<<"cover" : self.cover = parsed_cover
-      File.delete(parsed_cover) if File.exists?(parsed_cover)
-      parsed_cover.close unless parsed_cover.closed?
     end
+  ensure
+    File.delete(parsed_cover) if File.exists?(parsed_cover)
+    parsed_cover.close unless parsed_cover.closed?
   end
 
   def cover_image(book)
