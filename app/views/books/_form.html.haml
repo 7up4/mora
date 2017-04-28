@@ -14,9 +14,6 @@
     .field#genres
     = f.label :genres
     = @book.genres.collect{|g| g.genre_name}.join(', ')
-  .field#volume
-    = f.label :volume
-    = f.number_field :volume, min:0
   .field#language
     = f.label :language
     = f.select :language, ApplicationRecord::LANGUAGES, include_blank: true
@@ -26,11 +23,6 @@
       = book.book_file_url.to_s if book.book_file?
       = f.file_field :book_file
       = f.hidden_field :book_file_cache
-  -# .field#cover
-  -#   = f.label :cover
-  -#   = book.cover_url.to_s if book.cover?
-  -#   = f.file_field :cover
-  -#   = f.hidden_field :cover_cache
   .field#genres
     = f.label :genres
     = f.select :genre_ids, Genre.all.collect{|g| [g.genre_name, g.id]}, {}, multiple: true

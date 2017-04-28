@@ -30,23 +30,12 @@ class BooksController < ApplicationController
   # POST /books.json
   def create
     @book = Book.new(book_params)
-    @query = Array.new
-    parsed_book = EPUB::Parser.parse(@book.book_file.path)
-    (parsed_title = parsed_book.metadata.title).blank? ? @query<<"title" : @book.update_attributes(title: parsed_title)
-    (parsed_annotation = ActionView::Base.full_sanitizer.sanitize(parsed_book.metadata.description)).blank? ? @query<<"annotation" : @book.update_attributes(annotation: parsed_annotation)
-    (opened_file = cover_image(parsed_book)).blank? || (parsed_cover = File.open(opened_file, 'r')).blank? ? @query<<"cover" : @book.update_attributes(cover: parsed_cover)
-    File.delete(parsed_cover) if File.exists?(parsed_cover)
-    parsed_cover.close unless parsed_cover.closed?
     respond_to do |format|
-      if !@query.blank?
-        format.js {  }
-        return
-      end
       if @book.save
         format.html { redirect_to @book, notice: 'Book was successfully created.' }
         format.json { render :show, status: :created, location: @book }
       else
-        format.html { render :new }
+        format.js {  }
         format.json { render json: @book.errors, status: :unprocessable_entity }
       end
     end
@@ -81,24 +70,6 @@ class BooksController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_book
       @book = Book.find(params[:id])
-    end
-
-    def cover_image(book)
-      cover_types=%w(cover-image cover)
-      tmp_dir = "tmp/"
-      Dir.mkdir(tmp_dir) unless Dir.exist?(tmp_dir)
-      book.resources.each do |resource|
-        if resource.id.in?(cover_types)
-          Zip::File.open(@book.book_file.current_path) do |zip_file|
-            found_cover = zip_file.glob(resource.href.to_s).first
-            if !found_cover.blank?
-              tmp_filepath = tmp_dir+File.basename(found_cover.name)
-              found_cover.extract(tmp_filepath) if !tmp_filepath.blank?
-              return tmp_filepath
-            end
-          end
-        end
-      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
