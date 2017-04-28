@@ -17,6 +17,8 @@
 //= require jquery_ujs
 //= require jquery.remotipart
 //= require turbolinks
+//= require rails.validations
+//= require rails.validations.nested_form
 //= require_tree .
 //= require jquery_nested_form
 //= require javascripts/libs/zip.min.js

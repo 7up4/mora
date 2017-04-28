@@ -1,12 +1,4 @@
-= form_for(reader) do |f|
-  - if reader.errors.any?
-    #error_explanation
-      %h2
-        = pluralize(reader.errors.count, "error")
-        prohibited this reader from being saved:
-      %ul
-        - reader.errors.full_messages.each do |message|
-          %li= message
+= form_for reader, validate: true  do |f|
   .field
     = f.label :first_name
     = f.text_field :first_name
