@@ -5,13 +5,13 @@ var annotation_html = "<div class='field' id='annotation'><label for='book_annot
 $.each (<%= raw @book.query.to_json %>, function(i, val){
   switch (val) {
     case 'title':
-      $target.before(title_html);
+      if (!$("#"+val).length) {$target.before(title_html)};
       break;
     case 'cover':
-      $target.before(cover_html);
+      if (!$("#"+val).length) {$target.before(cover_html);}
       break;
     case 'annotation':
-      $target.before(annotation_html);
+      if (!$("#"+val).length) {$target.before(annotation_html);}
       break;
   }
 })
