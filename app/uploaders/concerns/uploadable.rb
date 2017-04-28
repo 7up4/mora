@@ -16,6 +16,13 @@ module Uploadable
       "/tmp/#{mounted_as}_uploads"
     end
 
+    # Provide a default URL as a default if there hasn't been a file uploaded:
+    def default_url
+      # For Rails 3.1+ asset pipeline compatibility:
+      # ActionController::Base.helpers.asset_path("fallback/" + [version_name, "default.png"].compact.join('_'))
+      "fallback/"+[version_name, "default_#{mounted_as}.jpg"].compact.join('_')
+    end
+
     # store! nil's the cache_id after it finishes so we need to remember it for deletion
     def remember_cache_id(new_file)
       @cache_id_was = cache_id

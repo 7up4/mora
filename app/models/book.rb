@@ -24,10 +24,9 @@ class Book < ApplicationRecord
   mount_uploader :book_file, BookFileUploader
 
   validates_associated :authors, :publishers
-  validates :title, :annotation, :language, presence: true
+  validates :title, :annotation, :language, :book_file, presence: true
   validates :volume, numericality: {greater_than: 0}, allow_nil: true
   validates :language, inclusion: {in: ApplicationRecord::LANGUAGES}
-  validates :book_file, presence: true
   validates :date_of_publication, presence: true
   validate :date_of_publication_not_in_future
   validate :has_an_author
@@ -38,13 +37,15 @@ class Book < ApplicationRecord
     @query = Array.new
     if self.book_file?
       parsed_book = EPUB::Parser.parse(self.book_file.path)
-      (parsed_title = parsed_book.metadata.title).blank? ? @query<<"title" : self.title = parsed_title
-      (parsed_annotation = ActionView::Base.full_sanitizer.sanitize(parsed_book.metadata.description)).blank? ? @query<<"annotation" : self.annotation = parsed_annotation
-      (opened_file = cover_image(parsed_book)).blank? || (parsed_cover = File.open(opened_file, 'r')).blank? ? @query<<"cover" : self.cover = parsed_cover
+      (parsed_title = parsed_book.metadata.title).blank? ? (@query<<"title" if self.title.blank?) : self.title = parsed_title
+      (parsed_annotation = ActionView::Base.full_sanitizer.sanitize(parsed_book.metadata.description)).blank? ? (@query<<"annotation" if self.annotation.blank?) : self.annotation = parsed_annotation
+      self.cover = parsed_cover if !(opened_file = cover_image(parsed_book)).blank? && !(parsed_cover = File.open(opened_file, 'r')).blank?
     end
   ensure
-    File.delete(parsed_cover) if File.exists?(parsed_cover)
-    parsed_cover.close unless parsed_cover.closed?
+    if !parsed_cover.blank?
+      File.delete(parsed_cover) if File.exist?(parsed_cover)
+      parsed_cover.close unless parsed_cover.closed?
+    end
   end
 
   def cover_image(book)
@@ -63,6 +64,7 @@ class Book < ApplicationRecord
         end
       end
     end
+    return nil
   end
 
   def count_words
