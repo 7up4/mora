@@ -1,4 +1,14 @@
 = nested_form_for book, remote: true, authenticity_token: true, validate: true do |f|
+  %p
+    = link_to "Change a title", "#", class: "hide_field", id: "title"
+  .field.hidden#title
+    = f.label :title
+    = f.text_field :title, validate: true
+  %p
+    = link_to "Change an annotation", "#", class: "hide_field", id: "annotation"
+  .field.hidden#annotation
+    = f.label :annotation
+    = f.text_area :annotation
   .field#date_of_publication
     = f.label :date_of_publication
     = f.text_field :date_of_publication, class: 'datepicker'
@@ -15,6 +25,13 @@
       = book.book_file_url.to_s if book.book_file?
       = f.file_field :book_file
       = f.hidden_field :book_file_cache
+  %p
+    = link_to "Change a cover", "#", class: "hide_field", id: "cover"
+  .field.hidden#cover
+    = f.label :cover
+    = book.cover_url.to_s if book.cover?
+    = f.file_field :cover
+    = f.hidden_field :cover_cache
   .field#genres
     = f.label :genres
     = f.select :genre_ids, Genre.all.collect{|g| [g.genre_name, g.id]}, {}, multiple: true

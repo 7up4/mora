@@ -37,9 +37,15 @@ class Book < ApplicationRecord
     @query = Array.new
     if self.book_file?
       parsed_book = EPUB::Parser.parse(self.book_file.path)
-      (parsed_title = parsed_book.metadata.title).blank? ? (@query<<"title" if self.title.blank?) : self.title = parsed_title
-      (parsed_annotation = ActionView::Base.full_sanitizer.sanitize(parsed_book.metadata.description)).blank? ? (@query<<"annotation" if self.annotation.blank?) : self.annotation = parsed_annotation
-      !(opened_file = cover_image(parsed_book)).blank? && !(parsed_cover = File.open(opened_file, 'r')).blank? ? self.cover = parsed_cover : nil
+      if self.title.blank?
+        (parsed_title = parsed_book.metadata.title).blank? ? @query<<"title" : self.title = parsed_title
+      end
+      if self.annotation.blank?
+        (parsed_annotation = ActionView::Base.full_sanitizer.sanitize(parsed_book.metadata.description)).blank? ? @query<<"annotation" : self.annotation = parsed_annotation
+      end
+      if self.cover.blank?
+        !(opened_file = cover_image(parsed_book)).blank? && !(parsed_cover = File.open(opened_file, 'r')).blank? ? self.cover = parsed_cover : nil
+      end
     end
   ensure
     if !parsed_cover.blank?

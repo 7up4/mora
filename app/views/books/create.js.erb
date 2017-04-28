@@ -1,17 +1,3 @@
-var $target = $("#book_file");
-var title_html = "<div class='field' id='title'><label for='book_title'>Title</label><input type='text' name='book[title]' id='book_title'></div>";
-var cover_html = "<div class='field' id='cover'><label for='book_cover'>Cover</label><input type='file' name='book[cover]' id='book_cover'><input type='hidden' name='book[cover_cache]' id='book_cover_cache'></div>"
-var annotation_html = "<div class='field' id='annotation'><label for='book_annotation'>Annotation</label><textarea name='book[annotation]' id='book_annotation'/></div>"
 $.each (<%= raw @book.query.to_json %>, function(i, val){
-  switch (val) {
-    case 'title':
-      if (!$("#"+val).length) {$target.before(title_html)};
-      break;
-    case 'cover':
-      if (!$("#"+val).length) {$target.before(cover_html);}
-      break;
-    case 'annotation':
-      if (!$("#"+val).length) {$target.before(annotation_html);}
-      break;
-  }
+    $(".field#"+val).removeClass("hidden")
 })
