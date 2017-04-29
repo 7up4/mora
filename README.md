@@ -26,7 +26,8 @@ Mora. Личное хранилище электронных книг.
 
 * Запустить сервер и открыть в браузере
 
-* Запуск delayed_job: rake jobs:work или же bin/delayed_job start
+* Запуск delayed_job: rake jobs:work или же bin/delayed_job start.
+Параллельность организуется добавлением новых работников (workers): bin/delayed_job start -n <number of workers>
 
 О проекте
 ---------------------------
