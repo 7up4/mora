@@ -26,11 +26,9 @@
 //= require javascripts/epub.min.js
 //= require javascripts/reader.min.js
 
-$(document).ready(function(){
-  $(document).on('turbolinks:load',function(){
-    $('.datepicker').datepicker({
-       language: "<%= I18n.locale %>",
-       format: 'dd/mm/yyyy'
-    });
+$(document).on('turbolinks:load',function(){
+  $('.datepicker').datepicker({
+     language: "<%= I18n.locale %>",
+     format: 'dd/mm/yyyy'
   });
 });
