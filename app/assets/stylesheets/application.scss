@@ -45,11 +45,15 @@ html, body, .opened_book{
   display: none;
 }
 
+.field_with_errors{
+  background-color: inherit;
+  display: inline;
+}
+
 .message {
-  background-color: red;
-  border-bottom-right-radius: 5px 5px;
-  border-top-right-radius: 5px 5px;
-  padding: 2px 5px;
+  color: red;
+  padding-left: 5px;
+  font-size: 12px;
 }
 
 div.field_with_errors div.ui-effects-wrapper {
