@@ -55,22 +55,29 @@ class Book < ApplicationRecord
   end
 
   def cover_image(book)
-    cover_types = %w(cover-image cover)
+    cover_types = %w(cover-image cover coverimage)
     tmp_dir = "tmp/"
     Dir.mkdir(tmp_dir) unless Dir.exist?(tmp_dir)
-    book.resources.each do |resource|
-      if resource.id.in?(cover_types)
-        Zip::File.open(self.book_file.current_path) do |zip_file|
-          found_cover = zip_file.glob(resource.href.to_s).first
-          if !found_cover.blank?
-            tmp_filepath = tmp_dir + File.basename(found_cover.name)
-            found_cover.extract(tmp_filepath) if !tmp_filepath.blank?
-            return tmp_filepath
-          end
+    if book.package.version.match('^3.*')
+      found_cover = extract_file_from_zip(self.book_file.current_path, book.manifest.cover_image.href.to_s)
+    elsif book.package.version.match('^2.*')
+      book.resources.each do |resource|
+        if resource.id.downcase.in?(cover_types)
+          found_cover = extract_file_from_zip(self.book_file.current_path, resource.href.to_s)
         end
       end
     end
-    return nil
+    if !found_cover.blank?
+      tmp_filepath = tmp_dir + File.basename(found_cover.name)
+      found_cover.extract(tmp_filepath) if !tmp_filepath.blank?
+      return tmp_filepath
+    end
+  end
+
+  def extract_file_from_zip(zip_path, file_name)
+    Zip::File.open(zip_path) do |zip_file|
+      return zip_file.glob('**/' + file_name).first
+    end
   end
 
   def count_words

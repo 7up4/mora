@@ -7,7 +7,7 @@ class BookJob < Struct.new(:book_id)
       doc = xhtml.content_document.nokogiri
       body = doc.search('body').first
       content = body.content
-      parsed_volume += content.split.size if body
+      parsed_volume += content.scan(/\S+/).length if body
     end
     book.update_attribute(:volume, parsed_volume)
   end
