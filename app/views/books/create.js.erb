@@ -1,3 +1,6 @@
+var controllerName = "<%= @book.class.name.downcase %>"
 $.each (<%= raw @book.query.to_json %>, function(i, val){
-    $(".field#"+val).removeClass("hidden")
+    $(".hide_field#" + val).remove()
+    $(".field#" + val).removeClass("hidden")
+    $("#" + controllerName + "_" + val).enableClientSideValidations()
 })
