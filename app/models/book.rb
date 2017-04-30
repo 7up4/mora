@@ -41,10 +41,10 @@ class Book < ApplicationRecord
         (parsed_title = parsed_book.metadata.title).blank? ? @query<<"title" : self.title = parsed_title
       end
       if self.language.blank?
-        (parsed_language = parsed_book.metadata.language.to_s.downcase).blank? ? @query<<"language" : self.language = parsed_language
+        (parsed_language = I18nData.languages[parsed_book.metadata.language.to_s.upcase]).blank? ? @query<<"language" : self.language = parsed_language
       end
       if self.date_of_publication.blank?
-        (parsed_date_of_publication = Time.parse(parsed_book.metadata.date.to_s)).blank? ? @query<<"date_of_publication" : self.date_of_publication = parsed_date_of_publication
+        (parsed_date_of_publication = Time.parse(parsed_book.metadata.date.to_s) rescue nil).blank? ? @query<<"date_of_publication" : self.date_of_publication = parsed_date_of_publication
       end
       if self.annotation.blank?
         (parsed_annotation = ActionView::Base.full_sanitizer.sanitize(parsed_book.metadata.description)).blank? ? @query<<"annotation" : self.annotation = parsed_annotation
