@@ -24,7 +24,7 @@ class Book < ApplicationRecord
   mount_uploader :book_file, BookFileUploader
 
   validates_associated :authors, :publishers
-  validates :title, :annotation, :language, :book_file, presence: true
+  validates :title, :annotation, :language, :book_file, :author_ids, :genre_ids, presence: true
   validates :volume, numericality: {greater_than: 0}, allow_nil: true
   validates :language, inclusion: {in: ApplicationRecord::LANGUAGES}
   validates :date_of_publication, presence: true
