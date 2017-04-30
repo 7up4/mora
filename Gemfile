@@ -54,7 +54,7 @@ gem 'tzinfo-data'
 
 gem 'carrierwave'
 gem 'mini_magick'
-gem 'countries', :require => 'countries/global'
+gem 'i18n_data'
 gem 'devise'
 gem 'bootstrap-sass'
 gem 'haml'

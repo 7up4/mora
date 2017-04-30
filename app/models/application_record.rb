@@ -1,7 +1,7 @@
 class ApplicationRecord < ActiveRecord::Base
   self.abstract_class = true
 
-  LANGUAGES = Country.all.map{|x| x.alpha2}
+  LANGUAGES = I18nData.languages.keys.map{|code| code.downcase}
   GENDERS = ['m', 'f']
 
   protected
