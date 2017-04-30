@@ -46,7 +46,6 @@ class BooksController < ApplicationController
   # PATCH/PUT /books/1.json
   def update
     respond_to do |format|
-      add_relations_from_select
       if @book.update(book_params)
         format.html { redirect_to @book, notice: 'Book was successfully updated.' }
         format.json { render :show, status: :ok, location: @book }
@@ -86,13 +85,5 @@ class BooksController < ApplicationController
       unless (@book.readers.exists?(id: current_reader.id) || current_reader.admin?)
         redirect_to root_url, notice: "You can't edit other's book"
       end
-    end
-
-    # ADD publishers and authors to book
-    def add_relations_from_select
-      @book.authors<<Author.find(book_params[:author_ids].select{|a| !a.blank?})
-      @book.publishers<<Publisher.find(book_params[:publisher_ids].select{|a| !a.blank?})
-      params[:book].delete :author_ids
-      params[:book].delete :publisher_ids
     end
 end

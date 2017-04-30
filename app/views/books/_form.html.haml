@@ -39,13 +39,24 @@
   .field#genres
     = f.label :genres
     = f.select :genre_ids, Genre.all.collect{|g| [g.genre_name, g.id]}, {}, multiple: true
-  .field#authors
+  - if @book.authors.exists?
+    .field#authors
     = f.label :authors
-    = f.select :author_ids, Author.all.select{|a| !a.books.exists?(@book.id)}.collect{|a| [a.first_name+' '+a.last_name, a.id]}, {}, multiple: true
-  .field#publishers
+    = @book.authors.collect{|a| [a.first_name+' '+a.last_name]}.join(', ')
+  - if !Author.all.empty?
+    .field#authors
+      = f.label :authors
+      = f.select :author_ids, Author.all.collect{|a| [a.first_name+' '+a.last_name, a.id]}, {}, multiple: true
+  - if @book.publishers.exists?
+    .field#publishers
     = f.label :publishers
-    = f.select :publisher_ids, Publisher.all.select{|p| !p.books.exists?(@book.id)}.collect{|p| [p.publisher_name, p.id]}, {}, multiple: true
-  = render 'author_fields', book: f
-  = render 'publisher_fields', book: f
+    = @book.publishers.collect{|g| g.publisher_name}.join(', ')
+  - if !Publisher.all.empty?
+    .field#publishers
+      = f.label :publishers
+      = f.select :publisher_ids, Publisher.all.collect{|p| [p.publisher_name, p.id]}, {}, multiple: true
+  - if action_name != 'edit'
+    = render 'author_fields', book: f
+    = render 'publisher_fields', book: f
   .actions
     = f.submit
