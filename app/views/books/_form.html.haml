@@ -1,28 +1,23 @@
 = nested_form_for book, remote: true, authenticity_token: true, validate: true do |f|
-  %p
-    = link_to "Change a title", "#", class: "hide_field", id: "title"
+  %p= change_a_field("title")
   .field.hidden#title
     = f.label :title
     = f.text_field :title
-  %p
-    = link_to "Change an annotation", "#", class: "hide_field", id: "annotation"
+  %p= change_a_field("annotation")
   .field.hidden#annotation
     = f.label :annotation
     = f.text_area :annotation
-  %p
-    = link_to "Change a language", "#", class: "hide_field", id: "language"
+  %p= change_a_field("language")
   .field.hidden#language
     = f.label :language
     = f.select :language, ApplicationRecord::LANGUAGES, include_blank: true
-  %p
-    = link_to "Change a cover", "#", class: "hide_field", id: "cover"
+  %p= change_a_field("cover")
   .field.hidden#cover
     = f.label :cover
     = book.cover_url.to_s if book.cover?
     = f.file_field :cover
     = f.hidden_field :cover_cache
-  %p
-    = link_to "Change a date of publication", "#", class: "hide_field", id: "date_of_publication"
+  %p= change_a_field("date_of_publication")
   .field.hidden#date_of_publication
     = f.label :date_of_publication
     = f.text_field :date_of_publication, class: 'datepicker'
