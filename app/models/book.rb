@@ -40,6 +40,9 @@ class Book < ApplicationRecord
       if self.title.blank?
         (parsed_title = parsed_book.metadata.title).blank? ? @query<<"title" : self.title = parsed_title
       end
+      if self.language.blank?
+        (parsed_language = parsed_book.metadata.language.to_s.downcase).blank? ? @query<<"language" : self.language = parsed_language
+      end
       if self.annotation.blank?
         (parsed_annotation = ActionView::Base.full_sanitizer.sanitize(parsed_book.metadata.description)).blank? ? @query<<"annotation" : self.annotation = parsed_annotation
       end
