@@ -21,7 +21,9 @@
     = book.cover_url.to_s if book.cover?
     = f.file_field :cover
     = f.hidden_field :cover_cache
-  .field#date_of_publication
+  %p
+    = link_to "Change a date of publication", "#", class: "hide_field", id: "date_of_publication"
+  .field.hidden#date_of_publication
     = f.label :date_of_publication
     = f.text_field :date_of_publication, class: 'datepicker'
   - if @book.genres.exists?
