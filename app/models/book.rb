@@ -28,7 +28,8 @@ class Book < ApplicationRecord
   validates :volume, numericality: {greater_than: 0}, allow_nil: true
   validates :language, inclusion: {in: ApplicationRecord::LANGUAGES}
   validates :date_of_publication, presence: true
-  validate :date_of_publication_not_in_future
+  validates :date_of_publication, date: true
+
   validate :has_an_author
 
   protected
@@ -111,12 +112,6 @@ class Book < ApplicationRecord
     self.readers.delete(self.readers)
     self.publishers.delete(self.publishers)
     self.genres.delete(self.genres)
-  end
-
-  def date_of_publication_not_in_future
-    if date_of_publication.present? && date_of_publication > Time.now
-      errors.add(:date_of_publication, "can't be in the future")
-    end
   end
 
   def has_an_author
