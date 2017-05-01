@@ -36,7 +36,6 @@ class BooksController < ApplicationController
         format.json { render :show, status: :created, location: @book }
       else
         format.js {  }
-        # format.html { render :new }
         format.json { render json: @book.errors, status: :unprocessable_entity }
       end
     end
