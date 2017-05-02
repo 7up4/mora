@@ -3,20 +3,28 @@
   %strong Title:
   = @book.title
 %p
+  %strong Cover:
+  = image_tag(@book.cover_url(:thumb).to_s)
+%p
+  %strong Author
+  = @book.authors.collect{|a| a.first_name + " " + a.last_name}.join(', ')
+- if @book.publishers.present?
+  %p
+    %strong Publisher
+    = @book.publishers.collect{|p| p.name}.join(', ')
+%p
   %strong Date of publication:
   = @book.date_of_publication
 %p
   %strong Annotation:
   = @book.annotation
-%p
-  %strong Volume:
-  = @book.volume
+- if !@book.volume.nil?
+  %p
+    %strong Volume:
+    = @book.volume
 %p
   %strong Language:
   = @book.language
-%p
-  %strong Cover:
-  = image_tag(@book.cover_url(:thumb).to_s)
 = link_to 'Edit', edit_book_path(@book)
 = link_to 'Read', epub_reader_book_path(@book)
 |

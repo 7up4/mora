@@ -13,7 +13,7 @@
   = @author.biography
 %p
   %strong Photo:
-  = image_tag(@author.photo_url.to_s)
+  = image_tag(@author.photo_url(:thumb).to_s)
 = link_to 'Edit', edit_author_path(@author)
 |
 = link_to 'Back', authors_path

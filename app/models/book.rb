@@ -27,8 +27,7 @@ class Book < ApplicationRecord
   validates :title, :annotation, :language, :book_file, :author_ids, :genre_ids, presence: true
   validates :volume, numericality: {greater_than: 0}, allow_nil: true
   validates :language, inclusion: {in: ApplicationRecord::LANGUAGES}
-  validates :date_of_publication, presence: true
-  validates :date_of_publication, date: true
+  validates :date_of_publication, presence: true, date: true
 
   validate :has_an_author
 
@@ -45,7 +44,7 @@ class Book < ApplicationRecord
         (parsed_language = I18nData.languages[parsed_book.metadata.language.to_s.upcase]).blank? ? @query<<"language" : self.language = parsed_language
       end
       if self.date_of_publication.blank?
-        (parsed_date_of_publication = Time.parse(parsed_book.metadata.date.to_s) rescue nil).blank? ? @query<<"date_of_publication" : self.date_of_publication = parsed_date_of_publication
+        (parsed_date_of_publication = Date.strptime(parsed_book.metadata.date.to_s, "%Y-%m-%d") rescue nil).blank? ? @query<<"date_of_publication" : self.date_of_publication = parsed_date_of_publication
       end
       if self.annotation.blank?
         (parsed_annotation = ActionView::Base.full_sanitizer.sanitize(parsed_book.metadata.description)).blank? ? @query<<"annotation" : self.annotation = parsed_annotation
@@ -62,14 +61,13 @@ class Book < ApplicationRecord
   end
 
   def cover_image(book)
-    cover_types = %w(cover-image cover coverimage)
     tmp_dir = "tmp/"
     Dir.mkdir(tmp_dir) unless Dir.exist?(tmp_dir)
     if book.package.version.match('^3.*')
       found_cover = extract_file_from_zip(self.book_file.current_path, book.manifest.cover_image.href.to_s)
     elsif book.package.version.match('^2.*')
       book.resources.each do |resource|
-        if resource.id.downcase.in?(cover_types)
+        if resource.id.downcase.include?("cover") && resource.media_type.downcase =~ /^image\//
           found_cover = extract_file_from_zip(self.book_file.current_path, resource.href.to_s)
         end
       end

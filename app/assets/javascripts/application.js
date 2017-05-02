@@ -29,6 +29,6 @@
 $(document).on('turbolinks:load',function(){
   $('.datepicker').datepicker({
      language: "<%= I18n.locale %>",
-     format: 'mm/dd/yyyy'
+     format: 'yyyy-mm-dd'
   });
 });

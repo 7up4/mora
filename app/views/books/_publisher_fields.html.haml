@@ -1,12 +1,13 @@
 = book.fields_for :publishers do |publisher|
-  .field
-    = publisher.label :publisher_name
-    = publisher.text_field :publisher_name
-  .field
-    = publisher.label :publisher_logo
-    = publisher.file_field :publisher_logo
-  .field
-    = publisher.label :publisher_location
-    = publisher.text_field :publisher_location
-  %p= publisher.link_to_remove "Remove a publisher"
+  .nested_publisher_fields
+    .field
+      = publisher.label :publisher_name
+      = publisher.text_field :publisher_name
+    .field
+      = publisher.label :publisher_logo
+      = publisher.file_field :publisher_logo
+    .field
+      = publisher.label :publisher_location
+      = publisher.text_field :publisher_location
+    %p= publisher.link_to_remove "Remove a publisher"
 %p= book.link_to_add "Add a publisher", :publishers
