@@ -5,46 +5,51 @@
   - if devise_mapping.confirmable? && resource.pending_reconfirmation?
     %div
       Currently waiting confirmation for: #{resource.unconfirmed_email}
-  .field
-    = f.label :first_name
-    = f.text_field :first_name
-  .field
-    = f.label :last_name
-    = f.text_field :last_name
-  .field
-    = f.label :second_name
-    = f.text_field :second_name
-  .field
-    = f.label :gender
-    = f.select :gender, ApplicationRecord::GENDERS
-  .field
-    = f.label :birthdate
-    = f.date_select :birthdate, start_year: Date.today.year-150, end_year: Date.today.year
-  .field
-    = f.label :avatar
-    = f.file_field :avatar
-  .field
-    = f.label :password
-    %i (leave blank if you don't want to change it)
-    %br/
-    = f.password_field :password, autocomplete: "off"
-    - if @minimum_password_length
-      %br/
-      %em
-        = @minimum_password_length
-        characters minimum
-  .field
-    = f.label :password_confirmation
-    %br/
-    = f.password_field :password_confirmation, autocomplete: "off"
-  .field
-    = f.label :current_password
-    %i (we need your current password to confirm your changes)
-    %br/
-    = f.password_field :current_password, autocomplete: "off"
-  .actions
-    = f.submit "Update"
-%h3 Cancel my account
-%p
-  Unhappy? #{button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete}
-= link_to "Back", :back
+  .row
+    .col-md-4
+      .form-group
+        = f.label :first_name
+        = f.text_field :first_name, {class: 'form-control'}
+    .col-md-4
+      .form-group
+        = f.label :last_name
+        = f.text_field :last_name, {class: 'form-control'}
+    .col-md-4
+      .form-group
+        = f.label :second_name
+        = f.text_field :second_name, {class: 'form-control'}
+  .row
+    .col-md-4
+      .form-group
+        = f.label :avatar
+        = f.file_field :avatar
+    .col-md-4
+      .form-group
+        = f.label :gender
+        = f.select :gender, ApplicationRecord::GENDERS, {}, {class: 'form-control selectpicker'}
+    .col-md-4
+      .form-group
+        = f.label :birthdate
+        = f.text_field :birthdate, class: 'form-control datepicker'
+  .row
+    .col-md-4
+      .form-group
+        = f.label :password
+        %i (leave blank if you don't want to change it)
+        %br/
+        = f.password_field :password, {autocomplete: "off", class: 'form-control'}
+    .col-md-4
+      .form-group
+        = f.label :password_confirmation
+        %br/
+        = f.password_field :password_confirmation, {autocomplete: "off", class: 'form-control'}
+    .col-md-4
+      .form-group
+        = f.label :current_password
+        -# %i (we need your current password to confirm your changes)
+        %br/
+        = f.password_field :current_password, {autocomplete: "off", class: 'form-control'}
+  .actions.btn-group
+    = f.submit "Update", {class: 'btn btn-primary btn-responsive'}
+    = link_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete, class: 'btn btn-danger btn-responsive'
+    = link_to "Back", :back, class: 'btn btn-success btn-responsive'

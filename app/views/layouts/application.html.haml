@@ -30,7 +30,8 @@
             - else
               %li= link_to 'Log In', new_reader_session_path
               %li= link_to 'Sign Up', new_reader_registration_path
-    = yield
+    .container-fluid
+      = yield
     %p.notice
       = notice
     %p.alert

@@ -14,6 +14,9 @@
 //= require bootstrap-sprockets
 //= require bootstrap-datepicker
 //= require bootstrap-datepicker/locales/bootstrap-datepicker.ru.js
+// = require bootstrap-select
+// = require bootstrap/alert
+// = require bootstrap/dropdown
 //= require jquery_ujs
 //= require jquery.remotipart
 //= require turbolinks
@@ -27,6 +30,7 @@
 //= require javascripts/reader.min.js
 
 $(document).on('turbolinks:load',function(){
+  $('.selectpicker').selectpicker();
   $('.datepicker').datepicker({
      language: "<%= I18n.locale %>",
      format: 'yyyy-mm-dd'
