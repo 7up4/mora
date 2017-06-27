@@ -1,19 +1,14 @@
 %p#notice= notice
-%p
-  %strong First name:
-  = @author.first_name
-%p
-  %strong Last name:
-  = @author.last_name
-%p
-  %strong Second name:
-  = @author.second_name
-%p
-  %strong Biography:
-  = @author.biography
-%p
-  %strong Photo:
-  = image_tag(@author.photo_url(:thumb).to_s)
-= link_to 'Edit', edit_author_path(@author)
-|
-= link_to 'Back', authors_path
+.flex-container
+  .left-container
+    = image_tag(@author.photo_url(:thumb).to_s)
+    .actions.btn-group
+      = link_to 'Edit', edit_author_path(@author), class: 'btn btn-success btn-responsive'
+      = link_to 'Back', authors_path, class: 'btn btn-danger btn-responsive'
+  .right-container
+    .header
+      %h1= author_fullname(@author.first_name, @author.second_name,@author.last_name)
+    %hr.my-hr
+    .content
+      = @author.biography
+

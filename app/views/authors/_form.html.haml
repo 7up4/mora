@@ -7,23 +7,32 @@
       %ul
         - author.errors.full_messages.each do |message|
           %li= message
-  .field
-    = f.label :first_name
-    = f.text_field :first_name
-  .field
-    = f.label :last_name
-    = f.text_field :last_name
-  .field
-    = f.label :second_name
-    = f.text_field :second_name
-  .field
-    = f.label :biography
-    = f.text_area :biography
-  .field
-    = f.label :gender
-    = f.select :gender, ApplicationRecord::GENDERS, default: ApplicationRecord::GENDERS[0]
-  .field
-    = f.label :photo
-    = f.file_field :photo
+  .row
+    .col-md-4
+      .form-group
+        = f.label :first_name
+        = f.text_field :first_name, {class: 'form-control'}
+    .col-md-4
+      .form-group
+        = f.label :last_name
+        = f.text_field :last_name, {class: 'form-control'}
+    .col-md-4
+      .form-group
+        = f.label :second_name
+        = f.text_field :second_name, {class: 'form-control'}
+  .row
+    .col-md-4
+      .form-group
+        = f.label :gender
+        = f.select :gender, ApplicationRecord::GENDERS, {}, default: ApplicationRecord::GENDERS[0], class: 'form-control selectpicker'
+    .col-md-4
+      .form-group
+        = f.label :photo
+        = f.file_field :photo
+  .row
+    .col-md-6
+      .form-group
+        = f.label :biography
+        = f.text_area :biography, {class: 'form-control', rows: 15}
   .actions
-    = f.submit
+    = f.submit "Update", {class: 'btn btn-primary btn-responsive'}
