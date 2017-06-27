@@ -33,7 +33,7 @@
       = f.hidden_field :book_file_cache
   .field#genres
     = f.label :genres
-    = f.select :genre_ids, Genre.all.collect{|g| [g.genre_name, g.id]}, {}, multiple: true
+    = f.select :genre_ids, Genre.all.sort_by{|g| g.genre_name}.collect{|g| [g.genre_name, g.id]}, {}, multiple: true
   - if @book.authors.exists?
     .field#authors
     = f.label :authors
