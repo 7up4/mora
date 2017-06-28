@@ -3,6 +3,7 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 .flex-container{
   display: flex;
+  justify-content: center;
 }
 
 .left-container{
@@ -10,7 +11,7 @@
 }
 
 .right-container{
-  margin-right: 3%;
+  width: 60%;
   .content{
     text-align: justify;
   };
@@ -18,4 +19,33 @@
 
 .my-hr{
   margin-top: -10;
+}
+
+.shadowed{
+  -webkit-box-shadow: 9px 4px 12px -2px rgba(0,0,0,0.75);
+  -moz-box-shadow: 9px 4px 12px -2px rgba(0,0,0,0.75);
+  box-shadow: 9px 4px 12px -2px rgba(0,0,0,0.75);
+}
+
+.header{
+  display: flex;
+  justify-content: space-between;
+}
+
+.header .actions{
+  display: flex;
+  justify-content: center;
+  align-items: center; 
+}
+
+.author_books{
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+}
+
+.book{
+  .header{
+    font-weight: bold;
+  }
 }

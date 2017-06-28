@@ -1,14 +1,29 @@
 %p#notice= notice
 .flex-container
   .left-container
-    = image_tag(@author.photo_url(:thumb).to_s)
-    .actions.btn-group
-      = link_to 'Edit', edit_author_path(@author), class: 'btn btn-success btn-responsive'
-      = link_to 'Back', authors_path, class: 'btn btn-danger btn-responsive'
+    = image_tag(@author.photo_url(:thumb).to_s, class: "shadowed")
   .right-container
     .header
       %h1= author_fullname(@author.first_name, @author.second_name,@author.last_name)
+      .actions.btn-group
+        = link_to 'Edit', edit_author_path(@author), class: 'btn btn-success btn-responsive'
+        = link_to 'Destroy', authors_path(@author), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-responsive'
     %hr.my-hr
     .content
       = @author.biography
+    %hr
+    .author_books
+      - @author.books.each do |book|
+        .book.flex-container
+          .left-container
+            = image_tag(book.cover_url(:thumb).to_s, class: "shadowed")
+          .right-container
+            .header
+              = book.title
+              .actions.btn-group
+                = link_to 'Show', book, class: 'btn btn-success btn-responsive'
+                = link_to 'Edit', edit_book_path(book), class: 'btn btn-success btn-responsive'
+                = link_to 'Destroy', books_path(book), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-responsive'
+            .content
+              = truncate(book.annotation, length: 1000)
 
