@@ -1,31 +1,40 @@
 %p#notice= notice
-%p
-  %strong Title:
-  = @book.title
-%p
-  %strong Cover:
-  = image_tag(@book.cover_url(:thumb).to_s)
-%p
-  %strong Author
-  = @book.authors.collect{|a| a.first_name + " " + a.last_name}.join(', ')
-- if @book.publishers.present?
-  %p
-    %strong Publisher
-    = @book.publishers.collect{|p| p.name}.join(', ')
-%p
-  %strong Date of publication:
-  = @book.date_of_publication
-%p
-  %strong Annotation:
-  = @book.annotation
-- if !@book.volume.nil?
-  %p
-    %strong Volume:
-    = @book.volume
-%p
-  %strong Language:
-  = @book.language
-= link_to 'Edit', edit_book_path(@book)
-= link_to 'Read', epub_reader_book_path(@book)
-|
-= link_to 'Back', books_path
+.flex-container
+  .left-container
+    = image_tag(@book.cover_url(:thumb).to_s, class: "shadowed")
+  .right-container
+    .header
+      %h1= @book.title
+      .actions.btn-group
+        = link_to 'Read', epub_reader_book_path(@book), class: 'btn btn-info btn-responsive'
+        = link_to 'Edit', edit_book_path(@book), class: 'btn btn-success btn-responsive'
+        = link_to 'Destroy', books_path(@book), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-responsive'
+    %hr.my-hr
+    .content
+      %table.table.table-nofluid.borderless
+        %tr
+          %td
+            %strong Authors
+          %td
+            - @book.authors.collect do |a| 
+              = link_to a.first_name + " " + a.last_name, author_path(a)
+              
+        - if @book.publishers.present?
+          %tr
+            %td 
+              %strong Publishers
+            %td= @book.publishers.collect{|p| p.name}.join(', ')
+        %tr
+          %td
+            %strong Date of publication
+          %td= @book.date_of_publication
+        - if !@book.volume.nil?
+          %tr
+            %td
+              %strong Volume
+            %td= @book.volume
+        %tr
+          %td
+            %strong Language 
+          %td= @book.language
+      = @book.annotation
