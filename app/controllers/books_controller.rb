@@ -32,7 +32,7 @@ class BooksController < ApplicationController
     @book = Book.new(book_params)
     respond_to do |format|
       if @book.save
-        format.html { redirect_to @book, notice: 'Book was successfully created.' }
+        format.js {render js: "window.location='#{book_path(@book)}'"}
         format.json { render :show, status: :created, location: @book }
       else
         format.js {  }

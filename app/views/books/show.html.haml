@@ -8,7 +8,7 @@
       .actions.btn-group
         = link_to 'Read', epub_reader_book_path(@book), class: 'btn btn-info btn-responsive'
         = link_to 'Edit', edit_book_path(@book), class: 'btn btn-success btn-responsive'
-        = link_to 'Destroy', books_path(@book), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-responsive'
+        = link_to 'Destroy', @book, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-responsive'
     %hr.my-hr
     .content
       %table.table.table-nofluid.borderless
@@ -18,7 +18,6 @@
           %td
             - @book.authors.collect do |a| 
               = link_to a.first_name + " " + a.last_name, author_path(a)
-              
         - if @book.publishers.present?
           %tr
             %td 
