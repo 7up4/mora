@@ -38,13 +38,8 @@
   align-items: center; 
 }
 
-.author_books{
-  display: flex;
-  justify-content: space-around;
-  flex-direction: column;
-}
-
-.book{
+.author{
+  margin: 1%;
   .header{
     font-weight: bold;
   }

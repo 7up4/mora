@@ -23,7 +23,7 @@
               .actions.btn-group
                 = link_to 'Show', book, class: 'btn btn-success btn-responsive'
                 = link_to 'Edit', edit_book_path(book), class: 'btn btn-success btn-responsive'
-                = link_to 'Destroy', books_path(book), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-responsive'
+                = link_to 'Destroy', book, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-responsive'
             .content
               = truncate(book.annotation, length: 1000)
 

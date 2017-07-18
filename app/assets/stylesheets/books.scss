@@ -8,3 +8,16 @@
 .table-nofluid{
   width: auto !important;
 }
+
+.book{
+  margin: 1%;
+  .header{
+    font-weight: bold;
+  }
+}
+
+.author_books{
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+}
